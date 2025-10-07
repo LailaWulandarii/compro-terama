@@ -3,27 +3,19 @@
 <?= $this->section('content'); ?>
 
 <!-- ======= Breadcrumbs ======= -->
-<div class="breadcrumbs d-flex align-items-center" style="background-image: url('assets/img/breadcrumbs-bg.jpg');">
+<div class="breadcrumbs d-flex align-items-center">
   <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
-
-    <h2>Blog</h2>
-    <ol>
-      <li><a href="index.html">Home</a></li>
-      <li>Blog</li>
-    </ol>
-
+    <h2> <?= $lang === 'id' ? $meta['nama_halaman_id'] : $meta['nama_halaman_en']; ?></h2>
+    <p class="mt-2" style="color: white;">
+      <?= $lang == 'id' ? $meta['deskripsi_halaman_id'] : $meta['deskripsi_halaman_en']; ?>
+    </p>
   </div>
-</div><!-- End Breadcrumbs -->
+</div>
 
 <!-- ======= Recent Blog Posts Section ======= -->
 <!-- Article Section -->
 <section id="article" class="article-section mb-3">
   <div class="container">
-    <div class="section-header mb-2">
-      <h2><?= $lang == 'id' ? $meta['nama_halaman_id'] : $meta['nama_halaman_en']; ?></h2>
-      <p><?= $lang == 'id' ? $meta['title_id'] : $meta['title_en']; ?></p>
-    </div>
-
     <div class="row gy-4">
       <!-- Kolom Kiri dengan Artikel Besar -->
       <div class="col-lg-8">
