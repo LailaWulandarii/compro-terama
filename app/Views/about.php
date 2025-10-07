@@ -2,14 +2,10 @@
 
 <?= $this->section('content'); ?>
 <!-- ======= Breadcrumbs ======= -->
-<div class="breadcrumbs d-flex align-items-center" style="background-image: url('assets/img/breadcrumbs-bg.jpg');">
+<div class="breadcrumbs d-flex align-items-center">
   <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
 
-    <h2>Services</h2>
-    <ol>
-      <li><a href="index.html">Home</a></li>
-      <li>Services</li>
-    </ol>
+    <h2><?= $lang == 'id' ? 'Tentang Kami' : 'About Us'; ?></h2>
 
   </div>
 </div><!-- End Breadcrumbs -->
