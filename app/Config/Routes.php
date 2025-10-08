@@ -129,9 +129,9 @@ $routes->group('id', function ($routes) {
 
     $routes->get('produk', 'ProductController::index');
     $routes->get('produk/(:segment)', 'ProductController::detail/$1');
-    $routes->get('(:segment)', 'ContentController::index');
-    $routes->get('(:segment)/(:segment)', 'ContentController::category');
     $routes->get('(:segment)/(:segment)/(:segment)', 'ContentController::detail');
+    $routes->get('(:segment)/(:segment)', 'ContentController::category');
+    $routes->get('(:segment)', 'ContentController::index');
 });
 
 $routes->group('en', function ($routes) {
@@ -148,18 +148,18 @@ $routes->group('en', function ($routes) {
 
     $routes->get('product', 'ProductController::index');
     $routes->get('product/(:segment)', 'ProductController::detail/$1');
-    $routes->get('(:segment)', 'ContentController::index');
-    $routes->get('(:segment)/(:segment)', 'ContentController::category');
     $routes->get('(:segment)/(:segment)/(:segment)', 'ContentController::detail');
+    $routes->get('(:segment)/(:segment)', 'ContentController::category');
+    $routes->get('(:segment)', 'ContentController::index');
 });
 
 
 
-$routes->get('/', 'Home::index');
-$routes->get('/beranda', 'Home::index');
-$routes->get('/about', 'Home::about');
-$routes->get('/services', 'Home::services');
-$routes->get('/projects', 'Home::projects');
-$routes->get('/blog', 'Home::blog');
-$routes->get('/contact', 'Home::contact');
-$routes->get('/lang/(:segment)', 'Language::switch/$1');
+// $routes->get('/', 'Home::index');
+// $routes->get('/beranda', 'Home::index');
+// $routes->get('/about', 'Home::about');
+// $routes->get('/services', 'Home::services');
+// $routes->get('/projects', 'Home::projects');
+// $routes->get('/blog', 'Home::blog');
+// $routes->get('/contact', 'Home::contact');
+// $routes->get('/lang/(:segment)', 'Language::switch/$1');
