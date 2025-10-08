@@ -14,76 +14,101 @@
 
 <!-- ======= Recent Blog Posts Section ======= -->
 <!-- Article Section -->
-<section id="article" class="article-section mb-3">
+<section class="news-section section-padding section-bg" id="section_5">
   <div class="container">
-    <div class="row gy-4">
-      <!-- Kolom Kiri dengan Artikel Besar -->
-      <div class="col-lg-8">
-        <?php if (!empty($article[0])): ?>
-          <?php $mainArticle = $article[0]; ?>
-          <div class="row">
-            <a href="<?= base_url(
-                        $lang === 'id'
-                          ? 'id/artikel/' . ($mainArticle['slug_kategori_id'] ?? 'kategori-tidak-ditemukan') . '/' . ($mainArticle['slug_artikel_id'] ?? 'artikel-tidak-ditemukan')
-                          : 'en/article/' . ($mainArticle['slug_kategori_en'] ?? 'category-not-found') . '/' . ($mainArticle['slug_artikel_en'] ?? 'article-not-found')
-                      ); ?>" style="display: block; text-decoration: none; color: inherit;">
-              <div class="articlecard d-flex flex-column justify-content-center">
-                <img src="<?= base_url('assets/img/artikel/' . $mainArticle['foto_artikel']); ?>"
-                  alt="<?= $lang == 'id' ? $mainArticle['alt_artikel_id'] : $mainArticle['alt_artikel_en']; ?>">
-                <h2 class="mt-3">
-                  <strong><?= $lang == 'id' ? $mainArticle['judul_artikel_id'] : $mainArticle['judul_artikel_en']; ?></strong>
-                </h2>
-                <div class="kategori-artikel mb-3" style="margin-top: 10px;">
-                  <span class="badge text-bg-primary"><?= $mainArticle['nama_kategori']; ?></span>
-                </div>
-                <p style="margin-top: 10px;">
-                  <?= $lang == 'id' ? $mainArticle['snippet_id'] : $mainArticle['snippet_en']; ?>
-                </p>
-                <div class="d-flex">
-                  <a href="<?= base_url(
-                              $lang === 'id'
-                                ? 'id/artikel/' . ($mainArticle['slug_kategori_id'] ?? 'kategori-tidak-ditemukan') . '/' . ($mainArticle['slug_artikel_id'] ?? 'artikel-tidak-ditemukan')
-                                : 'en/article/' . ($mainArticle['slug_kategori_en'] ?? 'category-not-found') . '/' . ($mainArticle['slug_artikel_en'] ?? 'article-not-found')
-                            ); ?>" class="button-text button-bg" style="margin-top: 10px;">
-                    <?= lang('bahasa.Baca Selengkapnya'); ?>
-                  </a>
-                </div>
-              </div>
-            </a>
-          </div>
-        <?php else: ?>
-          <p><?= $lang == 'id' ? 'Belum ada artikel utama.' : 'No main article available.'; ?></p>
-        <?php endif; ?>
+    <div class="row">
+
+      <!-- Filter kategori artikel -->
+      <div class="col-12 mb-4 text-center">
+        <?php foreach ($categories as $cat): ?>
+          <?php
+          $slug = $lang === 'id' ? $cat['slug_kategori_id'] : $cat['slug_kategori_en'];
+          $nama = $lang === 'id' ? $cat['nama_kategori_id'] : $cat['nama_kategori_en'];
+          $urlmenu = $lang === 'id' ? 'artikel' : 'article';
+          ?>
+          <a href="<?= base_url("$lang/$urlmenu/$slug") ?>"
+            class="btn btn-outline-primary btn-sm m-1 <?= ($categoryId == $cat['id_kategori_artikel']) ? 'active' : '' ?>">
+            <?= esc($nama) ?>
+          </a>
+        <?php endforeach; ?>
       </div>
 
-      <!-- Kolom Kanan dengan Artikel Kecil -->
-      <div class="col-lg-4">
-        <?php if (!empty($sideArtikel)): ?>
-          <?php foreach (array_slice($sideArtikel, 0, 4) as $side): ?>
-            <div class="row mb-4 align-items-start article-item">
-              <a href="<?= base_url(
-                          $lang == 'id'
-                            ? 'id/artikel/' . ($side['slug_kategori_id'] ?? 'kategori-tidak-ditemukan') . '/' . ($side['slug_artikel_id'] ?? 'artikel-tidak-ditemukan')
-                            : 'en/article/' . ($side['slug_kategori_en'] ?? 'category-not-found') . '/' . ($side['slug_artikel_en'] ?? 'article-not-found')
-                        ); ?>" style="text-decoration: none; color: inherit;">
-                <div class="col-12 d-flex">
-                  <img src="<?= base_url('assets/img/artikel/' . $side['foto_artikel']); ?>"
-                    alt="<?= $lang == 'id' ? $side['alt_artikel_id'] : $side['alt_artikel_en']; ?>"
-                    class="d-block me-3"
-                    style="width: 100px; height: 100px; object-fit: cover; border-radius: 5%;" loading="lazy">
-                  <div>
-                    <strong><?= $lang == 'id' ? $side['judul_artikel_id'] : $side['judul_artikel_en']; ?></strong>
-                    <p class="deskripsi">
-                      <?= implode(' ', array_slice(explode(' ', $lang == 'id' ? $side['snippet_id'] : $side['snippet_en']), 0, 7)) . '...'; ?>
-                    </p>
-                  </div>
-                </div>
+
+      <!-- Artikel Utama -->
+      <div class="col-lg-8 col-12 bg-white p-4 rounded shadow-sm">
+        <?php
+        if (!empty($allArticle)) {
+          usort($allArticle, function ($a, $b) {
+            return strtotime($b['created_at']) - strtotime($a['created_at']);
+          });
+          $item = $allArticle[0];
+        ?>
+          <div class="news-block mb-4">
+            <div class="news-block-top">
+              <a href="<?= base_url("$lang/" . ($lang === 'id' ? 'artikel' : 'article') . '/' . ($item['slug_kategori'] ?? '') . '/' . ($lang === 'id' ? $item['slug_artikel_id'] : $item['slug_artikel_en'])) ?>">
+                <img src="<?= base_url('assets/img/artikel/' . $item['foto_artikel']) ?>"
+                  class="img-fluid w-100 rounded shadow-sm"
+                  style="height: 360px; object-fit: cover;"
+                  alt="<?= esc($lang === 'id' ? $item['alt_artikel_id'] : $item['alt_artikel_en']) ?>">
               </a>
+              <div class="bg-secondary text-white px-3 py-1 mt-2 d-inline-block rounded">
+                <?= esc($item['nama_kategori'] ?? '-') ?>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <p class="text-muted mb-1">
+
+                <?= date('F d, Y', strtotime($item['created_at'])) ?>
+              </p>
+              <h4 class="mb-1">
+                <a href="<?= base_url("$lang/" . ($lang === 'id' ? 'artikel' : 'article') . '/' . ($item['slug_kategori'] ?? '') . '/' . ($lang === 'id' ? $item['slug_artikel_id'] : $item['slug_artikel_en'])) ?>"
+                  class="text-dark">
+                  <?= esc($lang === 'id' ? $item['judul_artikel_id'] : $item['judul_artikel_en']) ?>
+                </a>
+              </h4>
+              <p class="text-secondary">
+                <?= esc(strip_tags($lang === 'id' ? $item['snippet_id'] : $item['snippet_en'])) ?>
+              </p>
+            </div>
+          </div>
+        <?php } else { ?>
+          <p class="text-center text-muted">
+            <?= $lang === 'id' ? 'Belum ada artikel di kategori ini.' : 'No articles in this category.' ?>
+          </p>
+        <?php } ?>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4 col-12">
+        <div class="p-4 bg-white rounded">
+          <h5 class="mb-3"><?= $lang === 'id' ? 'Artikel Lainnya' : 'Other Articles' ?></h5>
+
+          <?php foreach ($sideArticle as $side): ?>
+            <div class="d-flex mb-3">
+              <div class="me-3" style="flex-shrink: 0;">
+                <a href="<?= base_url("$lang/" . ($lang === 'id' ? 'artikel' : 'article') . '/' . ($side['slug_kategori'] ?? '') . '/' . ($lang === 'id' ? $side['slug_artikel_id'] : $side['slug_artikel_en'])) ?>">
+                  <img src="<?= base_url('assets/img/artikel/' . $side['foto_artikel']) ?>"
+                    class="img-fluid rounded"
+                    style="width: 80px; height: 80px; object-fit: cover;"
+                    alt="<?= esc($lang === 'id' ? $side['alt_artikel_id'] : $side['alt_artikel_en']) ?>">
+                </a>
+              </div>
+              <div>
+                <h6 class="mb-1">
+                  <a href="<?= base_url("$lang/" . ($lang === 'id' ? 'artikel' : 'article') . '/' . ($side['slug_kategori'] ?? '') . '/' . ($lang === 'id' ? $side['slug_artikel_id'] : $side['slug_artikel_en'])) ?>"
+                    class="text-dark">
+                    <?= esc($lang === 'id' ? $side['judul_artikel_id'] : $side['judul_artikel_en']) ?>
+                  </a>
+                </h6>
+                <small class="text-muted">
+                  <i class="bi-calendar4 me-1"></i>
+                  <?= date('F d, Y', strtotime($side['created_at'])) ?>
+                </small>
+              </div>
             </div>
           <?php endforeach; ?>
-        <?php else: ?>
-          <p><?= $lang == 'id' ? 'Tidak ada artikel terkait.' : 'No related articles.'; ?></p>
-        <?php endif; ?>
+        </div>
       </div>
     </div>
   </div>
