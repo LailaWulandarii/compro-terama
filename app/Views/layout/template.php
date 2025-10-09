@@ -105,8 +105,7 @@ if (!empty($categoriesAktivitas)) {
     <?php endif; ?>
 
     <!-- Favicons -->
-    <link href="<?= base_url('assets/img/favicon.png'); ?>" rel="icon">
-    <link href="<?= base_url('assets/img/apple-touch-icon.png'); ?>" rel="apple-touch-icon">
+    <link href=" <?= base_url('favicon.ico') ?>" rel="icon">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -250,7 +249,7 @@ if (!empty($categoriesAktivitas)) {
                         <h5 class="title">
                             <a href="/">
                                 <img src="<?= base_url('assets/img/profil/' . $profil['logo_perusahaan']); ?>" alt="<?= $lang == 'id' ? $profil['alt_logo_perusahaan_id'] : $profil['alt_logo_perusahaan_en']; ?>" style="width: 30px; margin-right: 10px;">
-                            </a>Furnetic
+                            </a>Terama
                         </h5>
                         <p class="deskripsi">Copyright © 2025 Aul. All rights reserved.</p>
                     </div>
