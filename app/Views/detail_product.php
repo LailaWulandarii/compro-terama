@@ -33,9 +33,9 @@
         </p>
 
         <!-- Jika butuh tombol aksi -->
-        <a href="<?= base_url($lang . '/produk'); ?>" class="btn btn-outline-primary mt-3">
+        <!-- <a href="<?= base_url($lang . '/produk'); ?>" class="btn btn-outline-primary mt-3">
           <?= $lang === 'id' ? 'Kembali ke Daftar Produk' : 'Back to Product List'; ?>
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
